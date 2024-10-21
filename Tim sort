@@ -1,48 +1,48 @@
-MIN_MERGE = 32
-
 def insertion_sort(arr, left, right):
     for i in range(left + 1, right + 1):
-        key_item = arr[i]
+        key = arr[i]
         j = i - 1
-        while j >= left and arr[j] > key_item:
+        while j >= left and key < arr[j]:
             arr[j + 1] = arr[j]
             j -= 1
-        arr[j + 1] = key_item
-        print(f"Insertion sort step: {arr}")
-
-def merge(arr, left, mid, right):
-    merged = []
-    i, j = left, mid + 1
-    while i <= mid and j <= right:
-        if arr[i] <= arr[j]:
-            merged.append(arr[i])
-            i += 1
-        else:
-            merged.append(arr[j])
-            j += 1
-    merged.extend(arr[i:mid + 1])
-    merged.extend(arr[j:right + 1])
-    arr[left:left + len(merged)] = merged
-    print(f"Merging: {arr}")
+        arr[j + 1] = key
 
 def tim_sort(arr):
+    min_run = 32
     n = len(arr)
-    for start in range(0, n, MIN_MERGE):
-        end = min(start + MIN_MERGE - 1, n - 1)
+    
+    for start in range(0, n, min_run):
+        end = min(start + min_run - 1, n - 1)
         insertion_sort(arr, start, end)
+        print(f"Tim sort after insertion sort from {start} to {end}: {arr}")  # Show intermediate state
 
-    size = MIN_MERGE
+    size = min_run
     while size < n:
-        for left in range(0, n, size * 2):
+        for left in range(0, n, 2 * size):
             mid = min(n - 1, left + size - 1)
             right = min((left + 2 * size - 1), (n - 1))
+
             if mid < right:
-                merge(arr, left, mid, right)
+                merged = merge(arr[left:mid + 1], arr[mid + 1:right + 1])
+                arr[left:left + len(merged)] = merged
+                print(f"Tim sort after merging from {left} to {right}: {arr}")  # Show intermediate state
         size *= 2
 
-# Predefined input
-arr = [34, 8, 64, 51, 32, 21, 5, 13]  # 8 elements already inputted
+def merge(left, right):
+    result = []
+    i = j = 0
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+    result.extend(left[i:])
+    result.extend(right[j:])
+    return result
 
-print("\nOriginal array:", arr)
-tim_sort(arr)
-print("\nSorted array:", arr)
+# User input
+arr_tim = list(map(int, input("Enter 8 integers for Tim Sort (space-separated): ").split()))
+tim_sort(arr_tim)
+print("Sorted array:", arr_tim)
