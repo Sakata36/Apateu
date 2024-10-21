@@ -1,0 +1,22 @@
+def get_next_gap(gap):
+    gap = (gap * 10) // 13
+    return max(gap, 1)
+
+def comb_sort(arr):
+    n = len(arr)
+    gap = n
+    sorted = False
+
+    while not sorted:
+        gap = get_next_gap(gap)
+        sorted = True
+        for i in range(n - gap):
+            if arr[i] > arr[i + gap]:
+                arr[i], arr[i + gap] = arr[i + gap], arr[i]
+                sorted = False
+        print(f"Comb sort step with gap {gap}: {arr}")  # Show the current state of the array
+
+# User input
+arr_comb = list(map(int, input("Enter 8 integers for Comb Sort (space-separated): ").split()))
+comb_sort(arr_comb)
+print("Sorted array:", arr_comb)
