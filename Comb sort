@@ -1,0 +1,30 @@
+def get_next_gap(gap):
+    """Calculate the next gap value using the shrink factor."""
+    gap = (gap * 10) // 13
+    return max(gap, 1)
+
+def comb_sort(arr):
+    """Perform Comb Sort on the array."""
+    n = len(arr)
+    gap = n
+    sorted = False
+
+    while not sorted:
+        gap = get_next_gap(gap)
+        sorted = True
+        
+        # Compare elements at the current gap
+        for i in range(n - gap):
+            if arr[i] > arr[i + gap]:
+                arr[i], arr[i + gap] = arr[i + gap], arr[i]  # Swap
+                sorted = False
+        
+        # Print the current state of the array after each gap pass
+        print(f"Comb sort step with gap {gap}: {arr}")
+
+# Predefined input
+arr = [34, 8, 64, 51, 32, 21, 5, 13]  # 8 elements already inputted
+
+print("\nOriginal array:", arr)
+comb_sort(arr)
+print("\nSorted array:", arr)
