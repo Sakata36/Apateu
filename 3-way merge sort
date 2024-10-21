@@ -1,0 +1,69 @@
+def merge(arr, left, mid1, mid2, right):
+    left_part = arr[left:mid1]
+    middle_part = arr[mid1:mid2]
+    right_part = arr[mid2:right + 1]
+    
+    i = j = k = 0
+    index = left
+
+    while i < len(left_part) and j < len(middle_part) and k < len(right_part):
+        if left_part[i] <= middle_part[j] and left_part[i] <= right_part[k]:
+            arr[index] = left_part[i]
+            i += 1
+        elif middle_part[j] <= left_part[i] and middle_part[j] <= right_part[k]:
+            arr[index] = middle_part[j]
+            j += 1
+        else:
+            arr[index] = right_part[k]
+            k += 1
+        index += 1
+
+    while i < len(left_part) and j < len(middle_part):
+        if left_part[i] <= middle_part[j]:
+            arr[index] = left_part[i]
+            i += 1
+        else:
+            arr[index] = middle_part[j]
+            j += 1
+        index += 1
+
+    while j < len(middle_part) and k < len(right_part):
+        if middle_part[j] <= right_part[k]:
+            arr[index] = middle_part[j]
+            j += 1
+        else:
+            arr[index] = right_part[k]
+            k += 1
+        index += 1
+
+    while i < len(left_part):
+        arr[index] = left_part[i]
+        i += 1
+        index += 1
+
+    while j < len(middle_part):
+        arr[index] = middle_part[j]
+        j += 1
+        index += 1
+
+    while k < len(right_part):
+        arr[index] = right_part[k]
+        k += 1
+        index += 1
+
+def three_way_merge_sort(arr, left, right):
+    if left < right:
+        mid1 = left + (right - left) // 3
+        mid2 = left + 2 * (right - left) // 3
+        
+        three_way_merge_sort(arr, left, mid1)
+        three_way_merge_sort(arr, mid1 + 1, mid2)
+        three_way_merge_sort(arr, mid2 + 1, right)
+        
+        merge(arr, left, mid1 + 1, mid2 + 1, right)
+        print(f"Three-way merge sort step: {arr}")  # Show the current state of the array
+
+# User input
+arr_three_way = list(map(int, input("Enter 8 integers for Three-Way Merge Sort (space-separated): ").split()))
+three_way_merge_sort(arr_three_way, 0, len(arr_three_way) - 1)
+print("Sorted array:", arr_three_way)
