@@ -1,35 +1,21 @@
-import math
-
 def bucket_sort(arr):
-    num_buckets = len(arr)  # Number of buckets based on array size
-    max_value = max(arr)  # Maximum value in the array
+    max_value = max(arr)
+    size = max_value // len(arr) + 1
+    buckets = [[] for _ in range(size)]
 
-    # Create empty buckets
-    buckets = [[] for _ in range(num_buckets)]
-    
-    # Insert elements into their respective buckets
-    for i in range(len(arr)):
-        index = math.floor(arr[i] * num_buckets / (max_value + 1))  # Scaling elements to bucket indices
-        buckets[index].append(arr[i])
-        print(f"Added {arr[i]} to bucket {index}: {buckets[index]}")
-    
-    # Print buckets after all elements are distributed
-    print("\nBuckets after distribution:")
-    for i, bucket in enumerate(buckets):
-        print(f"Bucket {i}: {bucket}")
+    for num in arr:
+        index = num // size
+        buckets[index].append(num)
 
-    # Sort each bucket and concatenate the result
-    sorted_arr = []
-    for i in range(num_buckets):
-        buckets[i].sort()  # Sort individual bucket
-        print(f"\nBucket {i} after sorting: {buckets[i]}")
-        sorted_arr.extend(buckets[i])
-    
-    return sorted_arr
+    sorted_array = []
+    for bucket in buckets:
+        sorted_bucket = sorted(bucket)
+        sorted_array.extend(sorted_bucket)
+        print(f"Bucket sort step: {sorted_array}")  # Show the current state of the sorted array
 
-# Predefined input
-arr = [34, 8, 64, 51, 32, 21, 5, 13]
+    return sorted_array
 
-print("\nOriginal array:", arr)
-sorted_array = bucket_sort(arr)
-print("\nSorted array:", sorted_array)
+# User input
+arr_bucket = list(map(int, input("Enter 8 integers for Bucket Sort (space-separated): ").split()))
+sorted_bucket = bucket_sort(arr_bucket)
+print("Sorted array:", sorted_bucket)
