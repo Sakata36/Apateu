@@ -1,0 +1,37 @@
+def merge(arr, left, mid, right):
+    left_part = arr[left:mid + 1]
+    right_part = arr[mid + 1:right + 1]
+    i = j = 0
+    index = left
+
+    while i < len(left_part) and j < len(right_part):
+        if left_part[i] <= right_part[j]:
+            arr[index] = left_part[i]
+            i += 1
+        else:
+            arr[index] = right_part[j]
+            j += 1
+        index += 1
+
+    while i < len(left_part):
+        arr[index] = left_part[i]
+        i += 1
+        index += 1
+
+    while j < len(right_part):
+        arr[index] = right_part[j]
+        j += 1
+        index += 1
+
+def merge_sort(arr):
+    if len(arr) > 1:
+        mid = len(arr) // 2
+        merge_sort(arr[:mid])
+        merge_sort(arr[mid:])
+        merge(arr, 0, mid - 1, len(arr) - 1)
+        print(f"Merge sort step: {arr}")  # Show the current state of the array
+
+# Predefined input
+arr_merge = [38, 27, 43, 3, 9, 82, 10, 15]
+merge_sort(arr_merge)
+print("Sorted array:", arr_merge)
