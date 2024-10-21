@@ -1,0 +1,15 @@
+def stooge_sort(arr, l, h):
+    if l >= h:
+        return
+    if arr[l] > arr[h]:
+        arr[l], arr[h] = arr[h], arr[l]
+    if h - l + 1 > 2:
+        stooge_sort(arr, l, h - 1)
+        stooge_sort(arr, l + 1, h)
+        stooge_sort(arr, l, h - 1)
+    print(f"Stooge sort step: {arr}")  # Show the current state of the array
+
+# Predefined input
+arr_stooge = [38, 27, 43, 3, 9, 82, 10, 15]
+stooge_sort(arr_stooge, 0, len(arr_stooge) - 1)
+print("Sorted array:", arr_stooge)
