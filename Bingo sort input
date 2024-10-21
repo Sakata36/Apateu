@@ -1,0 +1,18 @@
+def bingo_sort(arr):
+    n = len(arr)
+    output = [[] for _ in range(max(arr) + 1)]
+
+    for num in arr:
+        output[num].append(num)
+
+    index = 0
+    for bucket in output:
+        for num in bucket:
+            arr[index] = num
+            index += 1
+    print(f"Bingo sort step: {arr}")  # Show the current state of the array
+
+# Predefined input
+arr_bingo = [38, 27, 43, 3, 9, 82, 10, 15]
+bingo_sort(arr_bingo)
+print("Sorted array:", arr_bingo)
