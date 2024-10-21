@@ -1,0 +1,32 @@
+def shell_sort(arr):
+    n = len(arr)
+    gap = n // 2  # Initialize gap size
+    
+    # Start with a big gap, then reduce the gap
+    while gap > 0:
+        print(f"\nCurrent gap: {gap}")
+        
+        # Perform a gapped insertion sort for this gap size.
+        for i in range(gap, n):
+            temp = arr[i]
+            j = i
+            
+            # Shift earlier gap-sorted elements until the correct location for arr[i] is found
+            while j >= gap and arr[j - gap] > temp:
+                arr[j] = arr[j - gap]
+                j -= gap
+            
+            # Put temp (the original arr[i]) in its correct location
+            arr[j] = temp
+        
+        # Print the array after each pass
+        print(f"Array after gap {gap}: {arr}")
+        
+        gap //= 2  # Reduce the gap for the next iteration
+
+# Input from user
+arr = [int(x) for x in input("Enter 8 numbers separated by spaces: ").split()]
+
+print("\nOriginal array:", arr)
+shell_sort(arr)
+print("\nSorted array:", arr)
