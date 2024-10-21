@@ -1,0 +1,27 @@
+def bubble_sort(arr):
+    n = len(arr)
+    # Traverse through all array elements
+    for i in range(n):
+        # Track whether a swap was made during this iteration
+        swapped = False
+        
+        # Last i elements are already sorted, no need to check them
+        for j in range(0, n - i - 1):
+            # Swap if the element found is greater than the next element
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+                swapped = True
+            
+            # Print the current state of the array after each comparison
+            print(f"Array after comparing index {j} and {j + 1}: {arr}")
+        
+        # If no two elements were swapped in the inner loop, then break
+        if not swapped:
+            break
+
+# Predefined input
+arr = [34, 8, 64, 51, 32, 21, 5, 13]  # 8 elements already inputted
+
+print("\nOriginal array:", arr)
+bubble_sort(arr)
+print("\nSorted array:", arr)
